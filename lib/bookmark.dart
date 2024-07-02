@@ -1,71 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:uts_project/HomePage.dart';
-import 'package:uts_project/bookmarksbm.dart';
-import 'package:uts_project/profile_detail.dart';
-  
-class BookmarkPage extends StatelessWidget {
-  final Map<String, dynamic> data;
+// import 'package:flutter/material.dart';
 
-  BookmarkPage({required this.data});
+// class bookmark extends StatefulWidget {
+//   const bookmark({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Bookmark Page'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'Kategori Beasiswa',
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10.0),
-            Text(
-              data['kategori'],
-              style: TextStyle(fontSize: 18.0),
-            ),
-            SizedBox(height: 20.0),
-            Text(
-              'Ketentuan',
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10.0),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: List<Widget>.generate(
-                data['ketentuan'].length,
-                (index) => Text(
-                  '${index + 1}. ${data['ketentuan'][index]}',
-                  style: TextStyle(fontSize: 18.0),
-                ),
-              ),
-            ),
-            SizedBox(height: 20.0),
-            Text(
-              'Durasi Beasiswa',
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10.0),
-            Text(
-              data['durasi'],
-              style: TextStyle(fontSize: 18.0),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   State<bookmark> createState() => _bookmarkState();
+// }
+
+// class _bookmarkState extends State<bookmark> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return const Placeholder();
+//   }
+// }

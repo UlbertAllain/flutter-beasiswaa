@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:uts_project/HomePage.dart';
-import 'package:uts_project/Login_page.dart';
-import 'package:uts_project/bookmarksbm.dart';
-import 'sortir.dart';
-import 'detail.dart';
-import 'package:uts_project/bookmarksbm.dart';
-import 'profile_detail.dart';
-import 'bookmark.dart';
+import 'package:uts_project/screens/HomePage.dart';
+import 'package:uts_project/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
@@ -16,14 +15,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Bookmark App',
+      title: 'Schoolarship App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) =>LoginPage(),
-        '/bookmark': (context) => Home(),
+        '/': (context) => Home(),
       },
     );
   }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "46760028645",
+    "project_id": "beasiswa-79e05",
+    "storage_bucket": "beasiswa-79e05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46760028645:android:26591e47a5c4a7e41de70c",
+        "android_client_info": {
+          "package_name": "com.example.uts_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpw-Abo7jSM8jif11D7On7pLtOCbl_-_E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

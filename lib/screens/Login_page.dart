@@ -1,10 +1,15 @@
-import 'package:uts_project/HomePage.dart';
-
-import 'Register_Page.dart';
 import 'package:flutter/material.dart';
+import 'package:uts_project/screens/HomePage.dart';
+import 'package:uts_project/Register_Page.dart';
+import 'package:uts_project/screens/ProductListScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +24,7 @@ class LoginPage extends StatelessWidget {
               _header(context),
               _inputField(context),
               _forgotPassword(context),
-              _signup(context),
+             
             ],
           ),
         ),
@@ -34,7 +39,7 @@ class LoginPage extends StatelessWidget {
           "Welcome Back",
           style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
         ),
-        Text("Enter your credential to login"),
+        Text("Enter your credentials to login"),
       ],
     );
   }
@@ -44,17 +49,19 @@ class LoginPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         TextField(
+          controller: emailController,
           decoration: InputDecoration(
-              hintText: "Username",
+              hintText: "Email",
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(18),
                   borderSide: BorderSide.none),
               fillColor: Colors.purple.withOpacity(0.1),
               filled: true,
-              prefixIcon: const Icon(Icons.person)),
+              prefixIcon: const Icon(Icons.email)),
         ),
         const SizedBox(height: 10),
         TextField(
+          controller: passwordController,
           decoration: InputDecoration(
             hintText: "Password",
             border: OutlineInputBorder(
@@ -68,12 +75,25 @@ class LoginPage extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Home()),
-            );
-          },
+          onPressed: () async {
+  String email = emailController.text;
+  String password = passwordController.text;
+
+  try {
+    UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ProductListScreen()),
+    );
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Login failed: ${e.toString()}')),
+    );
+  }
+},
           style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),
             padding: const EdgeInsets.symmetric(vertical: 16),
@@ -99,25 +119,4 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  _signup(context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text("Don't have an account? "),
-        TextButton(
-          onPressed: () {
-            // Pindah ke halaman RegisterPage saat tombol "Sign Up" ditekan
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => daftar()),
-            );
-          },
-          child: const Text(
-            "Sign Up",
-            style: TextStyle(color: Colors.purple),
-          ),
-        )
-      ],
-    );
-  }
 }
