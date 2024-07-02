@@ -3,7 +3,7 @@ import 'package:uts_project/screens/Login_page.dart';
 import 'package:uts_project/screens/ScholarshipDetailPage.dart';
 import '../model/product.dart';
 import '../../services/ProductService.dart';
-import '../profile_detail.dart';
+
 
 class Home extends StatefulWidget {
   @override
