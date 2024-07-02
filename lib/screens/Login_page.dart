@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:uts_project/screens/HomePage.dart';
-import 'package:uts_project/Register_Page.dart';
 import 'package:uts_project/screens/ProductListScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
