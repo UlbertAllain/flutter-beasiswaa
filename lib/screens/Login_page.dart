@@ -21,7 +21,6 @@ class LoginPage extends StatelessWidget {
             children: [
               _header(context),
               _inputField(context),
-              _forgotPassword(context),
              
             ],
           ),
@@ -107,14 +106,5 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  _forgotPassword(context) {
-    return TextButton(
-      onPressed: () {},
-      child: const Text(
-        "Forgot password?",
-        style: TextStyle(color: Colors.purple),
-      ),
-    );
-  }
 
 }

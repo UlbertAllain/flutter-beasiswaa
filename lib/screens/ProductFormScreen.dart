@@ -17,6 +17,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   final _formKey = GlobalKey<FormState>();
   late String _name;
   late String _category;
+  late String _description;
   final ProductService productService = ProductService();
 
   @override
@@ -25,6 +26,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     if (widget.product != null) {
       _name = widget.product!.name;
       _category = widget.product!.category;
+      _description = widget.product!.description;
     }
   }
 
@@ -66,6 +68,19 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                   _category = value!;
                 },
               ),
+              TextFormField(
+                initialValue: widget.product?.description,
+                decoration: InputDecoration(labelText: 'Description'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a Description';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  _description = value!;
+                },
+              ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
@@ -76,6 +91,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       id: widget.product?.id ?? '',
                       name: _name,
                       category: _category,
+                      description: _description,
                     );
 
                     if (widget.product == null) {

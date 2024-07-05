@@ -28,6 +28,11 @@ class ScholarshipDetailPage extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
             ),
             SizedBox(height: 16),
+            Text(
+              scholarship.description,
+              style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
+            ),
+            SizedBox(height: 16),
             Spacer(),
             Center(
               child: ElevatedButton(
