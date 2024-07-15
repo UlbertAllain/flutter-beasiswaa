@@ -18,33 +18,90 @@ class ScholarshipDetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              scholarship.name,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            Container(
+              padding: EdgeInsets.all(12.0),
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 255, 255, 255),
+                borderRadius: BorderRadius.circular(12.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromARGB(133, 0, 0, 0).withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Text(
+                scholarship.name,
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
             ),
-            SizedBox(height: 16),
-            Text(
-              scholarship.category,
-              style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
+            Container(
+              padding: EdgeInsets.all(12.0),
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Text(
+                scholarship.category,
+                style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
+              ),
             ),
-            SizedBox(height: 16),
-            Text(
-              scholarship.description,
-              style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(12.0),
+                margin: EdgeInsets.symmetric(vertical: 8.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color:
+                          Color.fromARGB(255, 0, 0, 0).withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: SingleChildScrollView(
+                  child: Text(
+                    scholarship.description,
+                    style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
+                  ),
+                ),
+              ),
             ),
-            SizedBox(height: 16),
-            Spacer(),
             Center(
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ApplyFormPage(scholarship: scholarship),
+                      builder: (context) =>
+                          ApplyFormPage(scholarship: scholarship),
                     ),
                   );
                 },
-                child: Text('Apply'),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24.0),
+                  ),
+                  backgroundColor: Colors.blue,
+                ),
+                child: Text('Apply', style: TextStyle(fontSize: 18)),
               ),
             ),
           ],

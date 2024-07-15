@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uts_project/screens/HomePage.dart';
 import 'package:uts_project/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:uts_project/screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => Home(),
+        '/': (context) => SplashScreen(),
       },
     );
   }

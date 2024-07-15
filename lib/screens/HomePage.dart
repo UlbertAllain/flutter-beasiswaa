@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:uts_project/screens/Login_page.dart';
-import 'package:uts_project/screens/ScholarshipDetailPage.dart';
+import '../screens/Login_page.dart';
+import '../screens/ScholarshipDetailPage.dart';
+import '../widgets/constants.dart';
 import '../model/product.dart';
 import '../../services/ProductService.dart';
-
 
 class Home extends StatefulWidget {
   @override
@@ -51,29 +51,74 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Beasiswaku'),
-      ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (_currentIndex == 0) 
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+          if (_currentIndex == 0)
+            Container(
+              color: Color.fromARGB(0, 255, 255,
+                  255), 
+              padding: const EdgeInsets.all(12.0),
               child: TextField(
                 controller: _searchController,
                 decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Color.fromARGB(
+                      115, 149, 230, 231), 
                   hintText: 'Search...',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                    borderSide: BorderSide.none, 
+                  ),
+                  prefixIcon: Icon(Icons.search,
+                      color: Colors
+                          .grey[600]), 
+                  suffixIcon: IconButton(
+                    
+                    icon: Icon(Icons.clear),
+                    onPressed: () => _searchController.clear(),
+                  ),
                 ),
               ),
             ),
-          Expanded(child: _getSelectedWidget()),
+          Expanded(
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                            'assets/background.jpeg'), // Ganti dengan path gambar yang sesuai
+                        fit: BoxFit
+                            .cover, // Sesuaikan cara gambar diatur dalam kontainer
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24.0),
+                        topRight: Radius.circular(24.0),
+                      ),
+                   
+                    ),
+                  ),
+                ),
+                Positioned.fill(
+                  child: _getSelectedWidget(),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
+
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: _onItemTapped,
+        backgroundColor: Colors.blue,
+        selectedItemColor:
+            Colors.white, 
+        unselectedItemColor: Colors
+            .blue[200], 
+        elevation: 8.0, 
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -89,30 +134,111 @@ class _HomeState extends State<Home> {
   }
 
   Widget buildProductList() {
-  return ListView.builder(
-    itemCount: _filteredProducts.length,
-    itemBuilder: (context, index) {
-      final product = _filteredProducts[index];
+    return ListView.builder(
+      itemCount: _filteredProducts.length,
+      itemBuilder: (context, index) {
+        final product = _filteredProducts[index];
+        final int templateIndex =
+            product.imageTemplateIndex % imageTemplates.length;
 
-      return ListTile(
-        title: Text(product.name),
-        subtitle: Text(product.category),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-        ),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ScholarshipDetailPage(scholarship: product),
-            ),
-          );
-        },
-      );
-    },
-  );
-}
-
+        return Container(
+          height: 120,
+          margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          child: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  image: DecorationImage(
+                    image: AssetImage(imageTemplates[templateIndex]),
+                    fit: BoxFit.cover,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  gradient: LinearGradient(
+                    begin: Alignment(1.00, 0.00),
+                    end: Alignment(-1, 0),
+                    colors: [
+                      Color(0xFF398AB9),
+                      Color(0x7B1B4359),
+                      Colors.black.withOpacity(0)
+                    ],
+                  ),
+                ),
+              ),
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: ListTile(
+                    title: Stack(
+                      children: [
+                        Text(
+                          product.name,
+                          style: TextStyle(
+                            fontSize: 20,
+                            foreground: Paint()
+                              ..style = PaintingStyle.stroke
+                              ..strokeWidth = 1
+                              ..color = Color.fromARGB(223, 253, 253, 253),
+                          ),
+                        ),
+                        Text(
+                          product.name,
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0),
+                              fontSize: 20),
+                        ),
+                      ],
+                    ),
+                    subtitle: Stack(
+                      children: [
+                        Text(
+                          product.category,
+                          style: TextStyle(
+                            fontSize: 14,
+                            foreground: Paint()
+                              ..style = PaintingStyle.stroke
+                              ..strokeWidth = 1
+                              ..color = Color.fromARGB(255, 0, 0, 0),
+                          ),
+                        ),
+                        Text(
+                          product.category,
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              fontSize: 14),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ScholarshipDetailPage(scholarship: product),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   Widget _getSelectedWidget() {
     switch (_currentIndex) {

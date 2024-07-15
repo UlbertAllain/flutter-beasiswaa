@@ -16,6 +16,8 @@ class _ApplyFormPageState extends State<ApplyFormPage> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _schoolController = TextEditingController();
+  final _addressController = TextEditingController();
+  final _genderController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,17 +33,30 @@ class _ApplyFormPageState extends State<ApplyFormPage> {
             children: [
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(
+                  labelText: 'Name',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your name';
                   }
                   return null;
                 },
+                minLines: 1,
+                maxLines: null,
               ),
+              SizedBox(height: 16),
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your email';
@@ -49,12 +64,54 @@ class _ApplyFormPageState extends State<ApplyFormPage> {
                   return null;
                 },
               ),
+              SizedBox(height: 16),
               TextFormField(
                 controller: _schoolController,
-                decoration: InputDecoration(labelText: 'School'),
+                decoration: InputDecoration(
+                  labelText: 'School',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your school';
+                  }
+                  return null;
+                },
+                minLines: 1,
+                maxLines: null,
+              ),
+              SizedBox(height: 16),
+              TextFormField(
+                controller: _addressController,
+                decoration: InputDecoration(
+                  labelText: 'Address',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your Address';
+                  }
+                  return null;
+                },
+                minLines: 1,
+                maxLines: null,
+              ),
+              SizedBox(height: 16),
+              TextFormField(
+                controller: _genderController,
+                decoration: InputDecoration(
+                  labelText: 'Gender',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your Address';
                   }
                   return null;
                 },
@@ -63,10 +120,14 @@ class _ApplyFormPageState extends State<ApplyFormPage> {
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    await FirebaseFirestore.instance.collection('applications').add({
+                    await FirebaseFirestore.instance
+                        .collection('applications')
+                        .add({
                       'name': _nameController.text,
                       'email': _emailController.text,
                       'school': _schoolController.text,
+                      'address': _addressController.text,
+                      'gender': _genderController.text,
                       'scholarship': widget.scholarship.name,
                     });
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -89,6 +150,8 @@ class _ApplyFormPageState extends State<ApplyFormPage> {
     _nameController.dispose();
     _emailController.dispose();
     _schoolController.dispose();
+    _addressController.dispose();
+    _genderController.dispose();
     super.dispose();
   }
 }

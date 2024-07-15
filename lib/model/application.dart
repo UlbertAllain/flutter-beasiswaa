@@ -4,6 +4,8 @@ class application {
   final String name;
   final String scholarship;
   final String School;
+  final String Address;
+  final String gender;
 
   application({
     required this.id,
@@ -11,6 +13,8 @@ class application {
     required this.name,
     required this.scholarship,
     required this.School,
+    required this.Address,
+    required this.gender,
   });
 
   factory application.fromMap(Map<String, dynamic> map, String id) {
@@ -20,6 +24,8 @@ class application {
       name: map['name'],
       scholarship: map['scholarship'],
       School: map['school'],
+      Address: map['Address'],
+      gender: map['gender'],
     );
   }
 
@@ -29,7 +35,8 @@ class application {
       'name': name,
       'scholarship': scholarship,
       'school': School,
-
+      'address': Address,
+      'gender': gender,
     };
   }
 }

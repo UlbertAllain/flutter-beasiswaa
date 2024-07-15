@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../model/product.dart';
 import '../services/ProductService.dart';
-
 
 class ProductFormScreen extends StatefulWidget {
   final Product? product;
@@ -18,7 +16,15 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   late String _name;
   late String _category;
   late String _description;
+  int _selectedTemplateIndex = 0;
   final ProductService productService = ProductService();
+
+  final List<String> imageTemplates = [
+    'assets/template1.png',
+    'assets/template2.png',
+    'assets/template3.png',
+    'assets/template4.png',
+  ];
 
   @override
   void initState() {
@@ -27,6 +33,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
       _name = widget.product!.name;
       _category = widget.product!.category;
       _description = widget.product!.description;
+      _selectedTemplateIndex = widget.product!.imageTemplateIndex;
     }
   }
 
@@ -82,6 +89,24 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                 },
               ),
               SizedBox(height: 20),
+              Text('Select Template Image:'),
+              SizedBox(height: 10),
+              DropdownButton<int>(
+                value: _selectedTemplateIndex,
+                items: List.generate(
+                  imageTemplates.length,
+                  (index) => DropdownMenuItem<int>(
+                    value: index,
+                    child: Text('Template ${index + 1}'),
+                  ),
+                ),
+                onChanged: (index) {
+                  setState(() {
+                    _selectedTemplateIndex = index!;
+                  });
+                },
+              ),
+              SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
@@ -92,6 +117,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       name: _name,
                       category: _category,
                       description: _description,
+                      imageTemplateIndex: _selectedTemplateIndex,
                     );
 
                     if (widget.product == null) {

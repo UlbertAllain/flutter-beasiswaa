@@ -3,12 +3,14 @@ class Product {
   final String name;
   final String category;
   final String description;
+  final int imageTemplateIndex;
 
   Product({
     required this.id,
     required this.name,
     required this.category,
     required this.description,
+    required this.imageTemplateIndex,
   });
 
   factory Product.fromMap(Map<String, dynamic> map, String id) {
@@ -17,6 +19,8 @@ class Product {
       name: map['name'],
       category: map['category'],
       description: map['description'],
+      imageTemplateIndex: map['imageTemplateIndex'] ?? 0,
+      
     );
   }
 
@@ -25,6 +29,7 @@ class Product {
       'name': name,
       'category': category,
       'description': description,
+      'imageTemplateIndex': imageTemplateIndex,
     };
   }
 }
